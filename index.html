@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eu Te Amo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0d1b2a;
+      color: white;
+      text-align: center;
+    }
+
+    .falling-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+    }
+
+    .music-player {
+      margin-top: 20px;
+    }
+
+    .image-container img {
+      width: 300px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .timer {
+      font-size: 1.2em;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    hr {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(to right, #ff5e5e, #ffb6b6);
+      width: 60%;
+      margin: 20px auto;
+    }
+
+    .text-box {
+      font-size: 1em;
+      padding: 10px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="falling-hearts"></div>
+  <div class="content">
+    <div class="music-player" aria-label="Player Spotify da música Aliança dos Tribalistas">
+      <iframe
+        src="https://open.spotify.com/embed/track/1DLKuppSYytOuxhtI6KBGu"
+        width="100%"
+        height="80"
+        frameborder="0"
+        allow="encrypted-media"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <div class="image-container">
+      <img src="img111.jpeg" alt="Foto do casal" />
+    </div>
+
+    <div class="timer" id="timer">
+      Oficialmente Juntos Há: <span id="time"></span>
+    </div>
+
+    <hr />
+
+    <div class="text-box">
+      <p id="mensagem">
+        A cada dia que passa, meu coração se enche mais de carinho e admiração por você. Cada sorriso seu ilumina o meu mundo, e cada abraço me faz sentir que estou exatamente onde deveria estar. Você é a razão dos meus melhores pensamentos, e tudo ao seu lado se torna mais bonito e significativo. Eu te amo para sempre. ❤️
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const startDate = new Date("2025-06-07T16:00:00");
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+      const seconds = Math.floor(diff / 1000);
+
+      const y = Math.floor(seconds / (365 * 24 * 3600));
+      const d = Math.floor((seconds % (365 * 24 * 3600)) / (24 * 3600));
+      const h = Math.floor((seconds % (24 * 3600)) / 3600);
+      const m = Math.floor((seconds % 3600) / 60);
+      const s = seconds % 60;
+
+      document.getElementById("time").textContent = `${y > 0 ? y + ' anos, ' : ''}${d} dias, ${h} horas, ${m} minutos e ${s} segundos`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    const heartContainer = document.querySelector(".falling-hearts");
+    const heartSymbols = ["♥", "💖", "💘", "💝", "❤️", "💗"];
+    const heartColors = ["red", "deeppink", "hotpink", "crimson", "#ff4d6d", "#ff6b81"];
+
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 3 + "s";
+      heart.style.fontSize = 16 + Math.random() * 24 + "px";
+      heart.style.top = "-30px";
+      heart.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+      heart.style.opacity = (0.5 + Math.random() * 0.5).toFixed(2);
+      heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+      heartContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }, 300);
+  </script>
+</body>
+</html>
